@@ -1,0 +1,29 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Update";
+}
+@model RentalMgtSystem.Models.Unit
+<div class="form-container">
+<h3>Edit Unit</h3>
+
+<form method="post" class="changeform">
+    <div class="form-group">
+        <label asp-for="UnitID" class="control-label"></label>
+        <input asp-for="UnitID" />
+    </div>
+    <div class="form-group">
+        <label asp-for="UnitName" class="control-label"></label>
+        <input asp-for="UnitName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+    <div class="form-actions">
+        <input type="submit" value="Save" asp-action="Edit" asp-controller="Unit" class="btn btn-primary"/>
+        <input type="submit" value="Back" asp-action="Index" asp-controller="Unit" class="btn btn-primary"/>
+    </div>
+</form>
+</div>

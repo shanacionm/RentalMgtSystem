@@ -1,0 +1,86 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Tenant Contracts";
+}
+@model IEnumerable<RentalMgtSystem.Models.TenantContract>
+<style>
+    th,td{
+        padding:3px;
+        border:solid 2px black;
+    }
+    .pop-container
+    {
+        border: solid 2px;
+        border-color:darkkhaki;
+    }
+</style>
+<div class="form-container form-list">
+    <h3>List of Tenant Contracts</h3>
+    <a asp-action="Create">+ Add New</a>
+    <div class="view-list">    
+    <table>
+        <thead>
+            <tr>
+                <th>ContractID</th>
+                <th>Tenant Name</th>
+                <th>Unit Name</th>
+                <th>Rental Amount</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tenant in Model)
+            {
+                <tr>
+
+                    <td>@Html.DisplayFor(modelname => tenant.ContractID)</td>
+                    <td>@Html.DisplayFor(modelname => tenant.TenantName)</td>
+                    <td>@Html.DisplayFor(modelname => tenant.UnitName)</td>
+                    <td>@Html.DisplayFor(modelname => tenant.RentalAmount)</td>
+                    <td>@Html.DisplayFor(modelname => tenant.StartDate)</td>
+                    <td>@Html.DisplayFor(modelname => tenant.EndDate)</td>
+                    <td>
+                        <a asp-route-id="@tenant.ContractID" asp-action="Details" data-id="@tenant.ContractID" class="show-details">Details</a> |
+                        <a asp-route-id="@tenant.ContractID" asp-action="Edit">Edit</a> |
+                        <a asp-route-id="@tenant.ContractID" asp-action="Delete" method="post">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="text-success">@TempData["Message"]</div>
+    }
+    </div>
+    <div class="pop-container mt-2">
+        <div id="details-container">        
+        </div>
+    </div>
+
+</div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Handle click event on the "View" link
+            $('.show-details').on('click', function (e) {
+                e.preventDefault(); // Prevent default link behavior
+
+                var url = $(this).attr('href'); // Get the URL from the link
+
+                // Make an AJAX request to fetch the partial view
+                $.get(url, function (data) {
+                    // Load the partial view content into the container
+                    $('#details-container').html(data);
+                });
+            });
+        });
+    </script>
+}

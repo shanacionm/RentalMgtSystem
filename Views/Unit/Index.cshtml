@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Units";
+}
+@model IEnumerable<RentalMgtSystem.Models.Unit>
+<style>
+    th,td{
+        padding:3px;
+        border:solid 2px black;
+    }
+</style>
+<div class="form-container">
+<h3>List of Units</h3>
+    <a asp-action="Create">+ Add New</a>
+<table>
+    <thead>
+        <tr>
+            <th>UnitID</th>
+            <th>Unit Name</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var unit in Model)
+            {
+        <tr>
+            
+            <td>@Html.DisplayFor(modelname => unit.UnitID)</td>
+            <td>@Html.DisplayFor(modelname => unit.UnitName)</td>
+            <td>@Html.DisplayFor(modelname => unit.Description)</td>
+            <td>
+                <a asp-route-id="@unit.UnitID" asp-action="Edit">Edit</a> |
+                <a asp-route-id="@unit.UnitID" asp-action="Delete" method="post" >Delete</a>
+            </td>
+        </tr>
+            }
+    </tbody>
+</table>
+    
+    @if (TempData["Message"] != null)
+    {
+        <div class="text-success">@TempData["Message"]</div>
+    }
+</div>

@@ -1,0 +1,56 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model RentalMgtSystem.Models.Dto.TenantContractDto
+
+<div>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="TenantName" class="control-label"></label>
+        <input asp-for="TenantName" class="form-control"/>
+    </div>
+        <div class="form-group">
+            <label asp-for="RentalAmount" class="control-label"></label>
+            <input asp-for="RentalAmount" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="UnitName" class="control-label"></label>
+            @Html.DropDownListFor(
+                     model => model.UnitName,
+                     (IEnumerable<SelectListItem>)ViewData["Units"],
+                     "Please Select Unit",
+                     new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label asp-for="Details" class="control-label"></label>
+            <input asp-for="Details" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="StartDate" class="control-label"></label>
+            <input asp-for="StartDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="EndDate" class="control-label"></label>
+            <input asp-for="EndDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="DownpaymentDate" class="control-label"></label>
+            <input asp-for="DownpaymentDate" class="form-control" />
+        </div>       
+        <div class="form-group">
+            <label asp-for="ElectricityBased" class="control-label"></label>
+
+            @Html.DropDownListFor(model => model.ElectricityBased,
+                     new SelectList(Model.ElectricityBasedValues, "Value", "Text") ,
+                     "Please select",
+                     new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" asp-action="Create" class="btn btn-primary"/>
+        </div>
+
+    
+</form>
+</div>
