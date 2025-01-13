@@ -3,3 +3,53 @@
 *@
 @{
 }
+@{
+    ViewData["Title"] = "Utility";
+}
+@model IEnumerable<RentalMgtSystem.Models.Utility>
+<style>
+    th,td{
+        padding:3px;
+        border:solid 2px black;
+    }
+</style>
+<div class="form-container">
+    <h3>List of Utilities</h3>
+    <a asp-action="Create">+ Add New</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Utility Id</th>
+                <th>Utility Type</th>
+                <th>Billing Date</th>
+                <th>Main Meter Reading</th>
+                <th>Submeter Reading</th>
+                <th>Payment Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var utility in Model)
+            {
+                <tr>
+
+                    <td>@Html.DisplayFor(modelname => utility.UtilityID)</td>
+                    <td>@Html.DisplayFor(modelname => utility.UtilityType)</td>
+                    <td>@Html.DisplayFor(modelname => utility.BillingDate)</td>
+                    <td>@Html.DisplayFor(modelname => utility.MainMeterReading)</td>
+                    <td>@Html.DisplayFor(modelname => utility.SubmeterReading)</td>
+                    <td>@Html.DisplayFor(modelname => utility.PaymentDate)</td>
+                    <td>
+                        <a asp-route-id="@utility.UtilityID" asp-action="Edit">Edit</a> |
+                        <a asp-route-id="@utility.UtilityID" asp-action="Delete" method="post">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="text-success">@TempData["Message"]</div>
+    }
+</div>

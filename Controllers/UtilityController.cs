@@ -1,20 +1,27 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentalMgtSystem.Models;
 
 namespace RentalMgtSystem.Controllers
 {
     public class UtilityController : Controller
     {
-         /*Notes TODOlist:
-     * Dto 
-     * Create
-     *Edit 
-     *Delete
-     **/
+        /*Notes TODOlist:
+    * Dto 
+    * Create
+    *Edit 
+    *Delete
+    **/
+        private readonly AppDBContext _dbContext;
+        public UtilityController(AppDBContext dBContext)
+        { 
+            _dbContext = dBContext;
+        }
         // GET: UtilityController
         public ActionResult Index()
         {
-            return View();
+            var utility = _dbContext.Utility.ToList();
+            return View(utility);
         }
 
         // GET: UtilityController/Details/5
