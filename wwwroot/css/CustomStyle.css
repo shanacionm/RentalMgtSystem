@@ -16,9 +16,12 @@
 .form-list {
     max-width: 1000px;
 }
-.view-list{
-    
-   
+.list-items {
+    width: 100%;
+}
+.list-items th, td {
+    padding: 3px;
+    border: solid 2px black;
 }
     /* Form Title */
     .form-container h2 {
@@ -75,3 +78,14 @@ margin-top: 20px;
     transition: background-color 0.3s;
     width: 150px;
 }
+/*navigation*/
+.nav-item a:hover{
+    text-decoration:underline;
+}
+.nav-item a{
+    font-weight:normal;
+}
+.nav-item a:active{
+    font-weight:bold;
+}
+/*labels*/

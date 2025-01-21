@@ -4,18 +4,22 @@ using System.Diagnostics;
 
 namespace RentalMgtSystem.Controllers
 {
+   
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly AppDBContext _dBContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, AppDBContext dbContext)
         {
+            _dBContext = dbContext;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var units = _dBContext.Unit.ToList();
+            return View(units);
         }
 
         public IActionResult Privacy()

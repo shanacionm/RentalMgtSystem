@@ -1,5 +1,33 @@
 ﻿@page
-@model RentalMgtSystem.Views.Utility.CreateModel
+@model RentalMgtSystem.Models.Utility
 @{
 }
-<div>Create Utility</div>
+<div>Create Utility
+    <form asp-action="Create">
+
+        <div class="form-group">
+            <label asp-for="UtilityType" class="control-label"></label>
+            <input asp-for="UtilityType" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="BillingDate" class="control-label"></label>
+            <input asp-for="BillingDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="MainMeterReading" class="control-label"></label>
+            <input asp-for="MainMeterReading" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="SubmeterReading" class="control-label"></label>
+            <input asp-for="SubmeterReading" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="PaymentDate" class="control-label"></label>
+            <input asp-for="PaymentDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+

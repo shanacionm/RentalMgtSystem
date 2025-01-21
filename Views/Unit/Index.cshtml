@@ -6,15 +6,12 @@
 }
 @model IEnumerable<RentalMgtSystem.Models.Unit>
 <style>
-    th,td{
-        padding:3px;
-        border:solid 2px black;
-    }
+
 </style>
 <div class="form-container">
 <h3>List of Units</h3>
     <a asp-action="Create">+ Add New</a>
-<table>
+    <table class="list-items">
     <thead>
         <tr>
             <th>UnitID</th>
