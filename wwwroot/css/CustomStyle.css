@@ -16,6 +16,10 @@
 .form-list {
     max-width: 1000px;
 }
+.pop-container {
+    border: solid 2px;
+    border-color: darkkhaki;
+}
 .list-items {
     width: 100%;
 }

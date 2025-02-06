@@ -1,32 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
- @model IEnumerable<RentalMgtSystem.Models.Unit>
+@model IEnumerable<RentalMgtSystem.Models.Unit>
 <div class="form-container text-center">
     <h1 class="display-4">Welcome</h1>
     <p>This Site is for Management of Units</p>
     <div>
-       
-        <table class="list-items">
-            <thead>
-                <tr>
-                    <th>UnitID</th>
-                    <th>Unit Name</th>
-                    <th>Description</th>                    
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var unit in Model)
-                {
-                    <tr>
-
-                        <td>@Html.DisplayFor(modelname => unit.UnitID)</td>
-                        <td>@Html.DisplayFor(modelname => unit.UnitName)</td>
-                        <td>@Html.DisplayFor(modelname => unit.Description)</td>
-                        
-                    </tr>
-                }
-            </tbody>
-        </table>
+      @Html.Partial("_UnitList", Model)
      </div>
 </div>
