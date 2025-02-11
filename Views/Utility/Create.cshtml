@@ -1,17 +1,27 @@
-﻿@page
-@model RentalMgtSystem.Models.Utility
+﻿
 @{
+    ViewData["Title"] = "Add New";
 }
+@model RentalMgtSystem.Models.Dto.UtilityDto
 <div>Create Utility
-    <form asp-action="Create">
+    <form method="post">
 
         <div class="form-group">
             <label asp-for="UtilityType" class="control-label"></label>
-            <input asp-for="UtilityType" class="form-control" />
+            
+            @Html.DropDownListFor(model => 
+                model.UtilityType,
+                new SelectList(Model.UtilityTypeValues,"Value", "Text"),
+                "Please Select",
+                new { @class="form-control"})
         </div>
         <div class="form-group">
             <label asp-for="BillingDate" class="control-label"></label>
             <input asp-for="BillingDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="BillingAmount" class="control-label"></label>
+            <input asp-for="BillingAmount" class="form-control" />
         </div>
         <div class="form-group">
             <label asp-for="MainMeterReading" class="control-label"></label>

@@ -2,15 +2,13 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-}
-@{
     ViewData["Title"] = "Utility";
 }
 @model IEnumerable<RentalMgtSystem.Models.Utility>
 <style>
 
 </style>
-<div class="form-container">
+<div class="form-container form-list">
     <h3>List of Utilities</h3>
     <a asp-action="Create">+ Add New</a>
     <table class="list-items">
@@ -19,6 +17,7 @@
                 <th>Utility Id</th>
                 <th>Utility Type</th>
                 <th>Billing Date</th>
+                <th>Billing Amount</th>
                 <th>Main Meter Reading</th>
                 <th>Submeter Reading</th>
                 <th>Payment Date</th>
@@ -33,6 +32,7 @@
                     <td>@Html.DisplayFor(modelname => utility.UtilityID)</td>
                     <td>@Html.DisplayFor(modelname => utility.UtilityType)</td>
                     <td>@Html.DisplayFor(modelname => utility.BillingDate)</td>
+                    <td>@Html.DisplayFor(modelname => utility.BillingAmount)</td>
                     <td>@Html.DisplayFor(modelname => utility.MainMeterReading)</td>
                     <td>@Html.DisplayFor(modelname => utility.SubmeterReading)</td>
                     <td>@Html.DisplayFor(modelname => utility.PaymentDate)</td>

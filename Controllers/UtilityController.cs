@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentalMgtSystem.Models;
+using RentalMgtSystem.Models.Dto;
 
 namespace RentalMgtSystem.Controllers
 {
     public class UtilityController : Controller
     {
         /*Notes TODOlist:
-    * Dto 
-    * Create
+    * Dto -done
+    * Create -done
     *Edit 
     *Delete
     **/
@@ -16,6 +17,7 @@ namespace RentalMgtSystem.Controllers
         public UtilityController(AppDBContext dBContext)
         { 
             _dbContext = dBContext;
+            
         }
         // GET: UtilityController
         public ActionResult Index()
@@ -31,18 +33,32 @@ namespace RentalMgtSystem.Controllers
         }
 
         // GET: UtilityController/Create
+
+       
         public ActionResult Create()
         {
-            return View();
+            var model = new UtilityDto();
+            return View(model);
         }
 
         // POST: UtilityController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(UtilityDto newUtility)
         {
             try
             {
+                Utility utility = new Utility
+                {
+                    UtilityType=newUtility.UtilityType,
+                    BillingDate=newUtility.BillingDate,
+                    BillingAmount=newUtility.BillingAmount,
+                    MainMeterReading=newUtility.MainMeterReading,
+                    SubmeterReading=newUtility.SubmeterReading,
+                    PaymentDate=newUtility.PaymentDate                    
+                };
+                _dbContext.Add(utility);
+                _dbContext.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -60,7 +76,7 @@ namespace RentalMgtSystem.Controllers
         // POST: UtilityController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, UtilityDto utility)
         {
             try
             {
