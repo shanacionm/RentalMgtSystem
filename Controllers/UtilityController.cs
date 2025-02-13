@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RentalMgtSystem.Models;
 using RentalMgtSystem.Models.Dto;
 
@@ -10,8 +11,11 @@ namespace RentalMgtSystem.Controllers
         /*Notes TODOlist:
     * Dto -done
     * Create -done
-    *Edit 
-    *Delete
+    *Edit -done
+    *Delete-done
+    *async-done
+    *paging
+    *sort
     **/
         private readonly AppDBContext _dbContext;
         public UtilityController(AppDBContext dBContext)
@@ -19,24 +23,21 @@ namespace RentalMgtSystem.Controllers
             _dbContext = dBContext;
             
         }
-        // GET: UtilityController
-        public ActionResult Index()
+        public void Reset()
         {
-            var utility = _dbContext.Utility.ToList();
+            TempData["Message"] = "";
+        }
+        // GET: UtilityController
+        public async Task<ActionResult> Index()
+        {
+            var utility =await _dbContext.Utility.ToListAsync();
             return View(utility);
         }
 
-        // GET: UtilityController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: UtilityController/Create
-
-       
+        // GET: UtilityController/Create       
         public ActionResult Create()
         {
+            Reset();
             var model = new UtilityDto();
             return View(model);
         }
@@ -44,7 +45,7 @@ namespace RentalMgtSystem.Controllers
         // POST: UtilityController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UtilityDto newUtility)
+        public async Task<ActionResult> Create(UtilityDto newUtility)
         {
             try
             {
@@ -58,7 +59,8 @@ namespace RentalMgtSystem.Controllers
                     PaymentDate=newUtility.PaymentDate                    
                 };
                 _dbContext.Add(utility);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
+                TempData["Message"] = "Added Successfully";
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -68,18 +70,26 @@ namespace RentalMgtSystem.Controllers
         }
 
         // GET: UtilityController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            Reset();
+            var model = await _dbContext.Utility.FindAsync(id);
+            return View(model);
         }
 
         // POST: UtilityController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, UtilityDto utility)
+        [Route("Utility/Edit/{id}")]
+        public async Task<ActionResult> Edit(int id, [Bind("UtilityID","UtilityType", "BillingDate", "BillingAmount", "MainMeterReading", "SubmeterReading", "PaymentDate")] Utility utility)
         {
             try
             {
+                if (id != utility.UtilityID)
+                    return NotFound();
+                _dbContext.Utility.Update(utility);
+                await _dbContext.SaveChangesAsync();
+                TempData["Message"] = "Updated Successfully";
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -88,19 +98,20 @@ namespace RentalMgtSystem.Controllers
             }
         }
 
-        // GET: UtilityController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
         // POST: UtilityController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [Route("Utility/Delete/{id}")]
+        public async Task <ActionResult> Delete(int id)
         {
             try
             {
+                if(id==null||id==0)
+                    return NotFound();
+                var utility=await _dbContext.Utility.FindAsync(id);
+                if (utility!=null)
+                    _dbContext.Utility.Remove(utility);
+                await _dbContext.SaveChangesAsync();
+                TempData["Message"] = "Deleted Successfully";
                 return RedirectToAction(nameof(Index));
             }
             catch

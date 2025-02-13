@@ -3,7 +3,8 @@
     ViewData["Title"] = "Add New";
 }
 @model RentalMgtSystem.Models.Dto.UtilityDto
-<div>Create Utility
+<div class="form-container">
+    <h5 class="text-center">Create New Utility</h5>
     <form method="post">
 
         <div class="form-group">
@@ -35,7 +36,7 @@
             <label asp-for="PaymentDate" class="control-label"></label>
             <input asp-for="PaymentDate" class="form-control" />
         </div>
-        <div class="form-group">
+        <div class="form-actions">
             <input type="submit" value="Create" class="btn btn-primary" />
         </div>
     </form>
