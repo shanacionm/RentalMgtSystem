@@ -17,5 +17,6 @@ namespace RentalMgtSystem.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true, NullDisplayText = null)]
         public DateTime? PaymentDate { get; set; }
+        public string? UtilityAccountNo {  get; set; }
     }
 }

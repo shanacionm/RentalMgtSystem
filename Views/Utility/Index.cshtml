@@ -4,7 +4,10 @@
 @{
     ViewData["Title"] = "Utility";
 }
+
+
 @model IEnumerable<RentalMgtSystem.Models.Utility>
+
 <style>
 
 </style>
@@ -14,11 +17,21 @@
     <table class="list-items">
         <thead>
             <tr>
-                <th>Utility Id</th>
-                <th>Utility Type</th>
-                <th>Billing Date</th>
-                <th>Billing Amount</th>
-                <th>Main Meter Reading</th>
+                <th>
+                    Utility Id
+                </th>
+                <th>
+                    @Html.ActionLink("Utility Type", "Index", new { sortOrder = ViewData["UTSortParam"] })
+                </th>
+                <th>
+                    @Html.ActionLink("Billing Date", "Index", new { sortOrder = ViewData["BDSortParam"] })
+                </th>
+                <th>
+                    @Html.ActionLink("Billing Amount", "Index", new { sortOrder = ViewData["BASortParam"] })
+                </th>
+                <th>
+                    Main Meter Reading
+                </th>
                 <th>Submeter Reading</th>
                 <th>Payment Date</th>
                 <th></th>
@@ -44,7 +57,7 @@
             }
         </tbody>
     </table>
-
+  
     @if (TempData["Message"] != null)
     {
         <div class="text-success">@TempData["Message"]</div>

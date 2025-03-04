@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RentalMgtSystem.Models;
 using RentalMgtSystem.Models.Dto;
+using PagedList;
+using PagedList.Mvc;
 
 namespace RentalMgtSystem.Controllers
 {
@@ -18,6 +20,7 @@ namespace RentalMgtSystem.Controllers
     *sort
     **/
         private readonly AppDBContext _dbContext;
+        private string sOrder;
         public UtilityController(AppDBContext dBContext)
         { 
             _dbContext = dBContext;
@@ -28,10 +31,48 @@ namespace RentalMgtSystem.Controllers
             TempData["Message"] = "";
         }
         // GET: UtilityController
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string? sortOrder)
         {
-            var utility =await _dbContext.Utility.ToListAsync();
-            return View(utility);
+            
+            var utility =from u in _dbContext.Utility
+                         select u;
+            //Set Sorting Order
+            //   ViewData["UISortParam"] = String.IsNullOrEmpty(sortOrder) ? "UtilityID_desc" : "";
+            ViewData["UTSortParam"] = sortOrder == "UtilityType" ? "UtilityType_desc" : "UtilityType";
+            ViewData["BDSortParam"] = sortOrder == "BillingDate" ? "BillingDate_desc" : "BillingDate";
+            ViewData["BASortParam"] = sortOrder == "BillingAmount" ? "BillingAmount_desc" : "BillingAmount";
+
+
+            //Sorting Logic
+            switch (sortOrder)
+            {
+                
+                case "UtilityType":
+                    utility = utility.OrderBy(i => i.UtilityType);
+                    break;
+                case "UtilityType_desc":
+                    utility = utility.OrderByDescending(i => i.UtilityType);
+                    break;
+                case "BillingDate":
+                    utility = utility.OrderBy(i => i.BillingDate);
+                    break;
+                case "BillingDate_desc":
+                    utility = utility.OrderByDescending(i => i.BillingDate);
+                    break;                
+                case "BillingAmount":
+                    utility = utility.OrderBy(i => i.BillingAmount);
+                    break;
+                case "BillingAmount_desc":
+                    utility = utility.OrderByDescending(i => i.BillingAmount);
+                    break;
+
+                default:
+                    utility = utility.OrderBy(i => i.UtilityID);
+                    break;
+            }         
+            
+
+            return View(await utility.ToListAsync());
         }
 
         // GET: UtilityController/Create       
