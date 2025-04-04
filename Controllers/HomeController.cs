@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RentalMgtSystem.Models;
 using System.Diagnostics;
 
@@ -16,16 +17,13 @@ namespace RentalMgtSystem.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var units = _dBContext.Unit.ToList();
+            var units = await _dBContext.Unit.ToListAsync();
             return View(units);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model RentalMgtSystem.Models.UtilityAccount
+
+@Html.AntiForgeryToken()
+<form asp-action="Create">
+
+    <div class="form-group">
+        <label asp-for="UtilityAccountNo" class="control-label">Account No.</label>
+        <input asp-for="UtilityAccountNo" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="UnitID" class="control-label">Unit</label>
+        @Html.DropDownListFor(
+                 model => model.UnitID,
+                 (IEnumerable<SelectListItem>)ViewData["Units"],
+                 "Please Select Unit",
+                 new { @class = "form-control" })    
+        
+    </div>
+    <div class="form-group">
+        <label asp-for="UtilityType" class="control-label"></label>
+       <select asp-for="UtilityType" class="form-control" asp-items="Html.GetEnumSelectList<UtilityType>()"></select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>

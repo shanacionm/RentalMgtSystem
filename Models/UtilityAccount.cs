@@ -10,5 +10,12 @@ namespace RentalMgtSystem.Models
         public string UtilityAccountNo { get; set; }
         public int? UnitID {  get; set; }
         public string? UtilityType { get; set; }
+        public Unit Unit { get; set; }
     }
+    public enum UtilityType
+    {
+        Electricity,
+        Water
+    }
+
 }

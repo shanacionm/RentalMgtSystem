@@ -5,26 +5,20 @@ using RentalMgtSystem.Models;
 using RentalMgtSystem.Models.Dto;
 using PagedList;
 using PagedList.Mvc;
+using RentalMgtSystem.Services;
 
 namespace RentalMgtSystem.Controllers
 {
     public class UtilityController : Controller
     {
-        /*Notes TODOlist:
-    * Dto -done
-    * Create -done
-    *Edit -done
-    *Delete-done
-    *async-done
-    *paging
-    *sort
-    **/
+
         private readonly AppDBContext _dbContext;
         private string sOrder;
-        public UtilityController(AppDBContext dBContext)
-        { 
+        private readonly IDropdownService _dropdownService;
+        public UtilityController(AppDBContext dBContext, IDropdownService dropdownService)
+        {
             _dbContext = dBContext;
-            
+            _dropdownService = dropdownService;
         }
         public void Reset()
         {
@@ -76,9 +70,10 @@ namespace RentalMgtSystem.Controllers
         }
 
         // GET: UtilityController/Create       
-        public ActionResult Create()
+        public async Task< ActionResult> Create()
         {
             Reset();
+            ViewData["UtilityAccount"] = await _dropdownService.GetUtilityAccountAsync();
             var model = new UtilityDto();
             return View(model);
         }
@@ -93,6 +88,7 @@ namespace RentalMgtSystem.Controllers
                 Utility utility = new Utility
                 {
                     UtilityType=newUtility.UtilityType,
+                    UtilityAccountNo=newUtility.UtilityAccountNo,
                     BillingDate=newUtility.BillingDate,
                     BillingAmount=newUtility.BillingAmount,
                     MainMeterReading=newUtility.MainMeterReading,
@@ -114,6 +110,7 @@ namespace RentalMgtSystem.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             Reset();
+            ViewData["UtilityAccount"] = await _dropdownService.GetUtilityAccountAsync();
             var model = await _dbContext.Utility.FindAsync(id);
             return View(model);
         }
@@ -122,7 +119,7 @@ namespace RentalMgtSystem.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Utility/Edit/{id}")]
-        public async Task<ActionResult> Edit(int id, [Bind("UtilityID","UtilityType", "BillingDate", "BillingAmount", "MainMeterReading", "SubmeterReading", "PaymentDate")] Utility utility)
+        public async Task<ActionResult> Edit(int id, [Bind("UtilityID","UtilityType", "UtilityAccountNo","BillingDate", "BillingAmount", "MainMeterReading", "SubmeterReading", "PaymentDate")] Utility utility)
         {
             try
             {

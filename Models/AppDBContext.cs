@@ -8,5 +8,6 @@ namespace RentalMgtSystem.Models
         public DbSet<TenantContract> TenantContract { get; set; }
 
         public  DbSet<Utility> Utility { get; set; }
+        public DbSet<UtilityAccount> UtilityAccount { get; set; }
     }
 }

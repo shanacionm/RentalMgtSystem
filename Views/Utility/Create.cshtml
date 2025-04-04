@@ -17,6 +17,15 @@
                 new { @class="form-control"})
         </div>
         <div class="form-group">
+            <label asp-for="UtilityAccountNo" class="control-label"></label>
+
+            @Html.DropDownListFor(model =>
+                     model.UtilityAccountNo,
+                     (IEnumerable<SelectListItem>)ViewData["UtilityAccount"],
+                     "Please Select",
+                     new { @class = "form-control" })
+        </div>
+        <div class="form-group">
             <label asp-for="BillingDate" class="control-label"></label>
             <input asp-for="BillingDate" class="form-control" />
         </div>

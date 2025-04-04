@@ -23,6 +23,7 @@
                 <th>
                     @Html.ActionLink("Utility Type", "Index", new { sortOrder = ViewData["UTSortParam"] })
                 </th>
+                <th>Account No. </th>
                 <th>
                     @Html.ActionLink("Billing Date", "Index", new { sortOrder = ViewData["BDSortParam"] })
                 </th>
@@ -44,6 +45,7 @@
 
                     <td>@Html.DisplayFor(modelname => utility.UtilityID)</td>
                     <td>@Html.DisplayFor(modelname => utility.UtilityType)</td>
+                    <td>@Html.DisplayFor(modelname => utility.UtilityAccountNo)</td>
                     <td>@Html.DisplayFor(modelname => utility.BillingDate)</td>
                     <td>@Html.DisplayFor(modelname => utility.BillingAmount)</td>
                     <td>@Html.DisplayFor(modelname => utility.MainMeterReading)</td>
