@@ -3,3 +3,37 @@
 *@
 @{
 }
+@model RentalMgtSystem.Models.UtilityAccount
+
+<div class="form-container">
+    <h3>Edit Unit</h3>
+
+    <form method="post" class="changeform">
+        <div class="form-group">
+            <label asp-for="UtilityAccountID" class="control-label"></label>
+            <input asp-for="UtilityAccountID" />
+        </div>
+        <div class="form-group">
+            <label asp-for="UtilityAccountNo" class="control-label">Account No.</label>
+            <input asp-for="UtilityAccountNo" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="UnitID" class="control-label">Unit</label>
+            @Html.DropDownListFor(
+                     model => model.UnitID,
+                     (IEnumerable<SelectListItem>)ViewData["Units"],
+                     "Please Select Unit",
+                     new { @class = "form-control" })
+
+        </div>
+        <div class="form-group">
+            <label asp-for="UtilityType" class="control-label"></label>
+            <select asp-for="UtilityType" class="form-control" asp-items="Html.GetEnumSelectList<UtilityType>()"></select>
+        </div>
+        <div class="form-actions">
+            <input type="submit" value="Save" asp-action="Edit" asp-controller="UtilityAccount" class="btn btn-primary" />
+            <input type="submit" value="Back" asp-action="Index" asp-controller="UtilityAccount" class="btn btn-secondary" />
+
+        </div>
+    </form>
+</div>

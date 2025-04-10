@@ -34,17 +34,26 @@ namespace RentalMgtSystem.Controllers
        
         public ActionResult Index()
         {
-            var accounts = _dbContext.UtilityAccount.ToList();
-          /*  var accounts = _dbContext.UtilityAccount
-                          .Include(u=>u.Unit)
-                          .Select(ua=> new UtilityAccount
-                          { 
-                              UtilityAccountID=ua.UtilityAccountID,
-                              UtilityAccountNo=ua.UtilityAccountNo,
-                              UnitName=ua.Unit.UnitName,
-                              UtilityType=ua.UtilityType })
-                          .ToList();*/
-                          
+            //var accounts = _dbContext.UtilityAccount.ToList();
+            /*  var accounts = _dbContext.UtilityAccount
+                            .Include(u=>u.Unit)
+                            .Select(ua=> new UtilityAccount
+                            { 
+                                UtilityAccountID=ua.UtilityAccountID,
+                                UtilityAccountNo=ua.UtilityAccountNo,
+                                UnitName=ua.Unit.UnitName,
+                                UtilityType=ua.UtilityType })
+                            .ToList();*/
+            var accounts = (from account in _dbContext.UtilityAccount
+                       join unit in _dbContext.Unit
+                       on account.UnitID equals unit.UnitID
+                       select new UtilityAccount
+                       {
+                           UtilityAccountID = account.UtilityAccountID,
+                           UtilityAccountNo = account.UtilityAccountNo,
+                           Unit = unit,
+                           UtilityType = account.UtilityType
+                       }).ToList();
             return View(accounts);
         }
 
@@ -74,18 +83,24 @@ namespace RentalMgtSystem.Controllers
         }
 
         // GET: UtilityAccountController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task< ActionResult> Edit(int id)
         {
-            return View();
+            ViewData["Units"] = await _dropdownService.GetUnitsAsync();
+            var uaccount = _dbContext.UtilityAccount.Find(id);
+            return View(uaccount);
         }
 
         // POST: UtilityAccountController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [Route("UtilityAccount/Edit/{id}")]
+        public ActionResult Edit(int id, UtilityAccount uaccount)
         {
             try
             {
+                _dbContext.Update(uaccount);
+                _dbContext.SaveChanges(true);
+                TempData["Message"] = "Updated Successfully";
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -95,18 +110,25 @@ namespace RentalMgtSystem.Controllers
         }
 
         // GET: UtilityAccountController/Delete/5
-        public ActionResult Delete(int id)
+      /*  public ActionResult Delete(int id)
         {
             return View();
-        }
+        }*/
 
         // POST: UtilityAccountController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [Route("UtilityAccount/Delete/{id}")]
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
+                var uaccount = await _dbContext.UtilityAccount.FindAsync(id);
+                if (uaccount == null)
+                {
+                    return NotFound();
+                }
+                _dbContext.Remove(uaccount);
+                await _dbContext.SaveChangesAsync();
+                TempData["Message"] = "Deleted Successfully";
                 return RedirectToAction(nameof(Index));
             }
             catch

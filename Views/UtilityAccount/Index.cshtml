@@ -23,10 +23,10 @@
             {
                 <tr>
 
-                    <td>@Html.DisplayFor(modelname => account.UtilityAccountID)</td>
-                    <td>@Html.DisplayFor(modelname => account.UtilityAccountNo)</td>
-                   
-                    <td>@Html.DisplayFor(modelname => account.UtilityType)</td>
+                    <td>@account.UtilityAccountID</td>
+                    <td>@account.UtilityAccountNo</td>
+                    <td>@account.Unit.UnitName</td>
+                    <td>@account.UtilityType</td>
                     <td>
                         <a asp-route-id="@account.UtilityAccountID" asp-action="Edit">Edit</a> |
                         <a asp-route-id="@account.UtilityAccountID" asp-action="Delete" method="post">Delete</a>

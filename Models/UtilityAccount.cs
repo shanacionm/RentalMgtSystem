@@ -9,8 +9,8 @@ namespace RentalMgtSystem.Models
         [Required]
         public string UtilityAccountNo { get; set; }
         public int? UnitID {  get; set; }
-        public string? UtilityType { get; set; }
-        public Unit Unit { get; set; }
+        public UtilityType UtilityType { get; set; }
+        public Unit? Unit { get; set; }
     }
     public enum UtilityType
     {

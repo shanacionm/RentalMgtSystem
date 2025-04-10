@@ -6,5 +6,6 @@ namespace RentalMgtSystem.Services
     {
         Task<IEnumerable<SelectListItem>> GetUnitsAsync();
         Task<IEnumerable<SelectListItem>> GetUtilityAccountAsync();
+        Task<IEnumerable<SelectListItem>> GetTenantContractAsync();
     }
 }

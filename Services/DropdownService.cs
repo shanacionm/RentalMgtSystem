@@ -36,5 +36,16 @@ namespace RentalMgtSystem.Services
                .ToListAsync();//fetch list of units
 
         }
+        public async Task<IEnumerable<SelectListItem>> GetTenantContractAsync()
+        {
+            return await _dbContext.TenantContract
+                .Select(t => new SelectListItem
+                {
+                    Value = t.ContractID.ToString(),
+                    Text = t.TenantName
+                })
+                .ToListAsync();
+        }
+
     }
 }

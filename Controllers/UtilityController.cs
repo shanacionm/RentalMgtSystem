@@ -30,6 +30,18 @@ namespace RentalMgtSystem.Controllers
             
             var utility =from u in _dbContext.Utility
                          select u;
+                        /*= (from u in _dbContext.Utility
+                           join ua in _dbContext.UtilityAccount
+                           on u.UtilityAccountNo equals ua.UtilityAccountNo
+                           select new Utility
+                           {
+                               UtilityID=u.UtilityID,
+                              
+                               BillingDate=u.BillingDate,
+                               UtilityAccountNo
+                           }
+                           )*/
+
             //Set Sorting Order
             //   ViewData["UISortParam"] = String.IsNullOrEmpty(sortOrder) ? "UtilityID_desc" : "";
             ViewData["UTSortParam"] = sortOrder == "UtilityType" ? "UtilityType_desc" : "UtilityType";
