@@ -17,21 +17,7 @@ namespace RentalMgtSystem.Controllers
             _dbContext=dBContext;
             _dropdownService = dropdownService;
         }
-
-        // GET: UtilityAccountController
-  /*      public IEnumerable<SelectListItem> GetUnits()
-        {
-            var units = _dbContext.Unit
-                .Select(u => new SelectListItem
-                {
-                    Value = u.UnitID.ToString(),//check this
-                    Text = u.UnitName
-
-                })
-                .ToList();//fetch list of units
-            return units;
-        }*/
-       
+      
         public ActionResult Index()
         {
             //var accounts = _dbContext.UtilityAccount.ToList();
@@ -67,12 +53,12 @@ namespace RentalMgtSystem.Controllers
         // POST: UtilityAccountController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UtilityAccount uaccount)
+        public async Task<ActionResult> Create(UtilityAccount uaccount)
         {
             try
             {
                 _dbContext.Add(uaccount);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
                 TempData["Message"] = "Added Successfully";
                 return RedirectToAction(nameof(Index));
             }
@@ -94,12 +80,12 @@ namespace RentalMgtSystem.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("UtilityAccount/Edit/{id}")]
-        public ActionResult Edit(int id, UtilityAccount uaccount)
+        public async Task<ActionResult> Edit(int id, UtilityAccount uaccount)
         {
             try
             {
                 _dbContext.Update(uaccount);
-                _dbContext.SaveChanges(true);
+                await _dbContext.SaveChangesAsync(true);
                 TempData["Message"] = "Updated Successfully";
                 return RedirectToAction(nameof(Index));
             }
@@ -108,13 +94,8 @@ namespace RentalMgtSystem.Controllers
                 return View();
             }
         }
-
-        // GET: UtilityAccountController/Delete/5
-      /*  public ActionResult Delete(int id)
-        {
-            return View();
-        }*/
-
+    
+        
         // POST: UtilityAccountController/Delete/5
         [Route("UtilityAccount/Delete/{id}")]
         public async Task<ActionResult> Delete(int id)
