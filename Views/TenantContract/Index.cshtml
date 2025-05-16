@@ -12,7 +12,7 @@
 <div class="form-container form-list">
     <h3>List of Tenant Contracts</h3>
     <a asp-action="Create">+ Add New</a>
-    <div>
+    <div class="form-content">
         <table class="list-items">
         <thead>
             <tr>
@@ -46,7 +46,7 @@
         </tbody>
     </table>
 
-
+    </div>
     @if (TempData["Message"] != null)
     {
         <div class="text-success">@TempData["Message"]</div>

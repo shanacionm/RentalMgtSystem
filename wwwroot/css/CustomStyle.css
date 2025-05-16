@@ -16,16 +16,28 @@
 .form-list {
     max-width: 1000px;
 }
+.form-content{
+    max-height:600px;
+    overflow-y:scroll;
+}
 .pop-container {
     border: solid 2px;
     border-color: darkkhaki;
 }
 .list-items {
     width: 100%;
+    margin-top:10px;
+    margin-bottom:10px;
 }
 .list-items th, td {
     padding: 3px;
     border: solid 2px black;
+}
+.list-items th{
+    text-align:center;
+}
+.link-actions {
+    width: 100px;
 }
     /* Form Title */
     .form-container h2 {
