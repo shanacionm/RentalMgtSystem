@@ -28,8 +28,8 @@
                     <td>@account.Unit.UnitName</td>
                     <td>@account.UtilityType</td>
                     <td>
-                        <a asp-route-id="@account.UtilityAccountID" asp-action="Edit">Edit</a> |
-                        <a asp-route-id="@account.UtilityAccountID" asp-action="Delete" method="post">Delete</a>
+                        <a asp-route-id="@account.UtilityAccountID" class="link-edit" asp-action="Edit">Edit</a> |
+                        <a asp-route-id="@account.UtilityAccountID" class="link-delete" asp-action="Delete" method="post">Delete</a>
                     </td>
                 </tr>
             }

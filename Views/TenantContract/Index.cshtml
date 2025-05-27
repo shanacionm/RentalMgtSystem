@@ -38,8 +38,8 @@
                     <td>@Html.DisplayFor(modelname => tenant.EndDate)</td>
                     <td>
                         <a asp-route-id="@tenant.ContractID" asp-action="Details" data-id="@tenant.ContractID" class="show-details">Details</a> |
-                        <a asp-route-id="@tenant.ContractID" asp-action="Edit">Edit</a> |
-                        <a asp-route-id="@tenant.ContractID" asp-action="Delete" method="post">Delete</a>
+                        <a asp-route-id="@tenant.ContractID" asp-action="Edit" class="link-edit">Edit</a> |
+                        <a asp-route-id="@tenant.ContractID" asp-action="Delete" class="link-delete" method="post">Delete</a>
                     </td>
                 </tr>
             }

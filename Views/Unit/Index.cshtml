@@ -30,8 +30,8 @@
             <td>@Html.DisplayFor(modelname => unit.UnitName)</td>
             <td>@Html.DisplayFor(modelname => unit.Description)</td>
             <td class="link-actions">
-                <a asp-route-id="@unit.UnitID" asp-action="Edit">Edit</a> |
-                <a asp-route-id="@unit.UnitID" asp-action="Delete" method="post" >Delete</a>
+                <a asp-route-id="@unit.UnitID" class="link-edit" asp-action="Edit">Edit</a> |
+                <a asp-route-id="@unit.UnitID" class="link-delete" asp-action="Delete" method="post" >Delete</a>
             </td>
         </tr>
             }

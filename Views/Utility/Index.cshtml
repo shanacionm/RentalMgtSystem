@@ -51,8 +51,8 @@
                     <td>@Html.DisplayFor(modelname => utility.SubmeterReading)</td>
                     <td>@Html.DisplayFor(modelname => utility.PaymentDate)</td>
                     <td class="link-actions">
-                        <a asp-route-id="@utility.UtilityID" asp-action="Edit">Edit</a> |
-                        <a asp-route-id="@utility.UtilityID" asp-action="Delete" method="post">Delete</a>
+                        <a asp-route-id="@utility.UtilityID" class="link-edit" asp-action="Edit">Edit</a> |
+                        <a asp-route-id="@utility.UtilityID" class="link-delete" asp-action="Delete" method="post">Delete</a>
                     </td>
                 </tr>
             }

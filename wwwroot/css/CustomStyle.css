@@ -36,6 +36,28 @@
 .list-items th{
     text-align:center;
 }
+/*links*/
+.form-container > a {
+    color: #0db6fd;
+    border: blue 1px solid;
+    padding: 3px;
+}
+
+a {
+    text-decoration: none;
+}
+
+    a:hover {
+        color: darkblue;
+    }
+
+.link-edit {
+    color: green;
+}
+
+.link-delete {
+    color: saddlebrown;
+}
 .link-actions {
     width: 100px;
 }
