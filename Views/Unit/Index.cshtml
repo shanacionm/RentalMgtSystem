@@ -11,6 +11,7 @@
 <div class="form-container">
 <h3>List of Units</h3>
     <a asp-action="Create">+ Add New</a>
+    <div class="form-content">
     <table class="list-items">
     <thead>
         <tr>
@@ -28,15 +29,15 @@
             <td>@Html.DisplayFor(modelname => unit.UnitID)</td>
             <td>@Html.DisplayFor(modelname => unit.UnitName)</td>
             <td>@Html.DisplayFor(modelname => unit.Description)</td>
-            <td>
-                <a asp-route-id="@unit.UnitID" asp-action="Edit">Edit</a> |
-                <a asp-route-id="@unit.UnitID" asp-action="Delete" method="post" >Delete</a>
+            <td class="link-actions">
+                <a asp-route-id="@unit.UnitID" class="link-edit" asp-action="Edit">Edit</a> |
+                <a asp-route-id="@unit.UnitID" class="link-delete" asp-action="Delete" method="post" >Delete</a>
             </td>
         </tr>
             }
     </tbody>
 </table>
-    
+   </div> 
     @if (TempData["Message"] != null)
     {
         <div class="text-success">@TempData["Message"]</div>

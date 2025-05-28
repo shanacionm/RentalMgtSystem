@@ -12,7 +12,7 @@
 <div class="form-container form-list">
     <h3>List of Tenant Contracts</h3>
     <a asp-action="Create">+ Add New</a>
-    <div>
+    <div class="form-content">
         <table class="list-items">
         <thead>
             <tr>
@@ -38,15 +38,15 @@
                     <td>@Html.DisplayFor(modelname => tenant.EndDate)</td>
                     <td>
                         <a asp-route-id="@tenant.ContractID" asp-action="Details" data-id="@tenant.ContractID" class="show-details">Details</a> |
-                        <a asp-route-id="@tenant.ContractID" asp-action="Edit">Edit</a> |
-                        <a asp-route-id="@tenant.ContractID" asp-action="Delete" method="post">Delete</a>
+                        <a asp-route-id="@tenant.ContractID" asp-action="Edit" class="link-edit">Edit</a> |
+                        <a asp-route-id="@tenant.ContractID" asp-action="Delete" class="link-delete" method="post">Delete</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 
-
+    </div>
     @if (TempData["Message"] != null)
     {
         <div class="text-success">@TempData["Message"]</div>

@@ -6,6 +6,7 @@ using RentalMgtSystem.Models.Dto;
 using PagedList;
 using PagedList.Mvc;
 using RentalMgtSystem.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace RentalMgtSystem.Controllers
 {
@@ -24,10 +25,24 @@ namespace RentalMgtSystem.Controllers
         {
             TempData["Message"] = "";
         }
+
         // GET: UtilityController
-        public async Task<ActionResult> Index(string? sortOrder)
+        public async Task<ActionResult> Index(string? sortOrder, string sortDir)
         {
-            
+           ViewBag.SortOptions = new SelectList(
+           new List<SelectListItem>
+           {
+                new SelectListItem { Text = "Utility Type", Value = "UtilityType" },
+                new SelectListItem { Text = "Billing Date", Value = "BillingDate" },
+                new SelectListItem { Text = "Billing Amount", Value = "BillingAmount" }
+           }, "Value", "Text", sortOrder);
+            ViewBag.SortDir = new SelectList(
+                new List<SelectListItem>
+                {
+                    new SelectListItem{Text="Asc", Value="asc"},
+                    new SelectListItem{Text="Desc", Value="desc"}
+                }, "Value", "Text", sortDir);
+
             var utility =from u in _dbContext.Utility
                          select u;
                         /*= (from u in _dbContext.Utility
@@ -42,35 +57,24 @@ namespace RentalMgtSystem.Controllers
                            }
                            )*/
 
-            //Set Sorting Order
-            //   ViewData["UISortParam"] = String.IsNullOrEmpty(sortOrder) ? "UtilityID_desc" : "";
-            ViewData["UTSortParam"] = sortOrder == "UtilityType" ? "UtilityType_desc" : "UtilityType";
-            ViewData["BDSortParam"] = sortOrder == "BillingDate" ? "BillingDate_desc" : "BillingDate";
-            ViewData["BASortParam"] = sortOrder == "BillingAmount" ? "BillingAmount_desc" : "BillingAmount";
+           
 
-
-            //Sorting Logic
+            //Sorting Logic           
             switch (sortOrder)
             {
                 
                 case "UtilityType":
-                    utility = utility.OrderBy(i => i.UtilityType);
+                    utility = (sortDir == "desc") ?  utility.OrderByDescending(i => i.UtilityType): utility.OrderBy(i => i.UtilityType);
                     break;
-                case "UtilityType_desc":
-                    utility = utility.OrderByDescending(i => i.UtilityType);
-                    break;
+               
                 case "BillingDate":
-                    utility = utility.OrderBy(i => i.BillingDate);
+                    utility = (sortDir == "desc") ? utility.OrderByDescending(i => i.BillingDate) : utility.OrderBy(i => i.BillingDate);
                     break;
-                case "BillingDate_desc":
-                    utility = utility.OrderByDescending(i => i.BillingDate);
-                    break;                
+                               
                 case "BillingAmount":
-                    utility = utility.OrderBy(i => i.BillingAmount);
+                    utility = (sortDir == "desc") ? utility.OrderByDescending(i => i.BillingAmount) : utility.OrderBy(i => i.BillingAmount);
                     break;
-                case "BillingAmount_desc":
-                    utility = utility.OrderByDescending(i => i.BillingAmount);
-                    break;
+                
 
                 default:
                     utility = utility.OrderBy(i => i.UtilityID);
